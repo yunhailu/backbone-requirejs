@@ -1,18 +1,5 @@
 define(['jquery','view','handle'],function($, view, handle){
 
-    //设置一下全局的ajax
-    $.ajaxSetup({
-        type: 'post',
-        beforeSend: function(){
-            base.ui.createWait();
-        },
-        error: function(){
-            base.ui.alert('系统错误，请稍后重试！');
-        },
-        complete: function(){
-            base.ui.closeWait();
-        }
-    });
 	var routes = {
 
         //404
