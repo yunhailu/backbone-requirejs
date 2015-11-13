@@ -183,3 +183,28 @@ loginfo.html
 ```
 在事件处理中函数中this即表示当前元素所处的view对象，通过this.model可以很方便的操控model信息。
 至此，这套架构基本已经说完，我觉得相当好用，如果有什么问题可以给我留言。
+
+##打包
+requirejs打包其实与这个项目关系不到，但是事情毕竟有始有终为好。
+我采用gulp打包requirejs项目，也很简单，主要用到amd-optimize这个插件。
+```javascript
+var gulp = require('gulp');
+//requirejs项目打包
+var amdOptimize = require('amd-optimize');
+//合并
+var concat = require('gulp-concat');
+//压缩js
+var uglify = require('gulp-uglify');
+//创建打包任务
+gulp.task('rjs', function() {
+return	gulp.src('js/*.js')
+	.pipe(amdOptimize('main',{
+		name: "main",
+		configFile: "js/main.js",//配置文件可以直接饮用项目中的配置文件
+		baseUrl: 'js'
+	}))
+	.pipe(concat('main.js'))
+	.pipe(uglify())
+	.pipe(gulp.dest('dist/js'));
+});
+```
